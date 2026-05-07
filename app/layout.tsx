@@ -62,13 +62,13 @@ export default function RootLayout({
         />
       </head>
       <body className={`${poppins.className} min-h-screen flex flex-col bg-white text-gray-900`}>
-        <AuthProvider>
-          <NotificationProvider>
+        <NotificationProvider>
+          <AuthProvider>
             <Navbar />
             <main className="flex-grow">{children}</main>
             <Footer />
-          </NotificationProvider>
-        </AuthProvider>
+          </AuthProvider>
+        </NotificationProvider>
       </body>
     </html>
   );
