@@ -1,26 +1,90 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #55CF9A;
+  --color-background: #FFFFFF;
+  --color-text: #333333;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: 'Poppins', sans-serif;
+  --border-color: #F3F4F6; /* Standardized Border Color */
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: white;
+  color: #333333;
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Flat Design Overrides */
+* {
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+.flat-border {
+  border: 2px solid var(--border-color);
+}
+
+.flat-card {
+  background: white;
+  border: 2px solid var(--border-color);
+  padding: 1.5rem;
+}
+
+.btn-flat {
+  background-color: #55CF9A;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  display: inline-block;
+  transition: opacity 0.2s;
+}
+
+.btn-flat:hover {
+  opacity: 0.9;
+}
+
+/* Shimmer Animation for Skeletons */
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(to right, #f6f7f8 8%, #edeef1 18%, #f6f7f8 33%);
+  background-size: 1000px 100%;
+}
+
+/* Print Styles for Perfect PDF Export */
+@media print {
+  nav, footer, .print-hidden, .toast-container {
+    display: none !important;
+  }
+  
+  body, .min-h-screen {
+    background-color: white !important;
+    padding: 0 !important;
+  }
+
+  #student-report {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 2rem !important;
+  }
+
+  .border-2 {
+    border-width: 1px !important;
+    border-color: #eee !important;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
 }
