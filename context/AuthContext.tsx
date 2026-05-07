@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 import Cookies from 'js-cookie';
 import api from '../lib/api';
 import { useRouter } from 'next/navigation';
-import { useNotification } from './NotificationContext';
+import { toast } from 'react-toastify';
 
 interface AuthContextType {
   user: any;
@@ -24,7 +24,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
-  const { showNotification } = useNotification();
 
   useEffect(() => {
     const token = Cookies.get('token');
@@ -47,7 +46,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.removeItem('user');
     setUser(null);
     router.push('/');
-    showNotification('Logged out successfully', 'success');
+    toast.info('Logged out successfully');
   };
 
   return (

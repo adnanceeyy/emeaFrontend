@@ -17,9 +17,9 @@ export default async function Home() {
   const content = await getContent();
 
   const teachers = [
-    { name: 'Rashid Pazheri', role: 'Educator', image: '/assets/rashidP.png' },
     { name: 'K. Sham', role: 'Principal', image: '/assets/shamk.png' },
     { name: 'Ismail PT', role: 'Headmaster', image: '/assets/ismail.png' },
+    { name: 'Rashid Pazheri', role: 'Educator', image: '/assets/rashidP.png' },
   ];
 
   return (
@@ -56,17 +56,17 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Improved Teachers Section */}
-      <section id="teachers" className="py-24 md:py-32 bg-gray-50/50">
+      {/* School Leadership Section */}
+      <section id="leadership" className="py-24 md:py-32 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16 space-y-4">
-            <h2 className="text-[10px] font-black text-[#55CF9A] uppercase tracking-[0.5em]">Our Team</h2>
-            <p className="text-2xl md:text-3xl font-black text-gray-900 tracking-tighter uppercase">Academic Leadership</p>
+            <h2 className="text-[10px] font-black text-[#55CF9A] uppercase tracking-[0.5em]">School Management</h2>
+            <p className="text-2xl md:text-3xl font-black text-gray-900 tracking-tighter uppercase">School Leadership</p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-24">
-            {teachers.map((teacher, idx) => (
-              <TeacherCard key={idx} {...teacher} />
-            ))}
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-24">
+            <TeacherCard name="Sayyid Basheer Ali Shihab Thangal" role="President" image="/assets/basheeraliThangal.jpg" />
+            <TeacherCard name="P. K. Basheer" role="Secretary" image="/assets/P.K. Basheer.jpg" />
+            <TeacherCard name="Balathil Bappu" role="Manager" image="/assets/bappu.png" />
           </div>
         </div>
       </section>
@@ -89,6 +89,21 @@ export default async function Home() {
               <a href="https://wa.me/919947941701" className="bg-[#55CF9A] text-white px-8 py-4 font-bold text-xs text-center uppercase tracking-widest hover:opacity-90 transition-opacity">Message Us</a>
               <a href="tel:+919947941701" className="border-2 border-white/20 text-white px-8 py-4 font-bold text-xs text-center uppercase tracking-widest hover:bg-white hover:text-gray-900 transition-all">Call Support</a>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Improved Teachers Section */}
+      <section id="teachers" className="py-24 md:py-32 bg-gray-50/50">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16 space-y-4">
+            <h2 className="text-[10px] font-black text-[#55CF9A] uppercase tracking-[0.5em]">Academic Team</h2>
+            <p className="text-2xl md:text-3xl font-black text-gray-900 tracking-tighter uppercase">Academic Leadership</p>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-24">
+            {teachers.map((teacher, idx) => (
+              <TeacherCard key={idx} {...teacher} />
+            ))}
           </div>
         </div>
       </section>

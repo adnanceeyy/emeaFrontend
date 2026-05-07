@@ -3,13 +3,14 @@ import { useState, useEffect, useRef } from 'react';
 import api from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
-import { useNotification } from '@/context/NotificationContext';
+import { toast } from 'react-toastify';
+import { useDialog } from '@/context/DialogContext';
 import { Users, Image as ImageIcon, FileText, Upload, Trash2, Edit2, Key } from 'lucide-react';
 
 export default function AdminDashboard() {
   const { user, loading } = useAuth();
   const router = useRouter();
-  const { showNotification } = useNotification();
+  const { confirm } = useDialog();
   const [activeTab, setActiveTab] = useState('students');
 
   // Student Form State
@@ -73,15 +74,15 @@ export default function AdminDashboard() {
     try {
       if (editingStudent) {
         await api.put(`/students/${editingStudent}`, studentForm);
-        showNotification('Student updated successfully', 'success');
+        toast.success('Student updated successfully');
       } else {
         await api.post('/students', studentForm);
-        showNotification('Student added successfully', 'success');
+        toast.success('Student added successfully');
       }
       resetStudentForm();
       fetchStudents();
     } catch (err: any) {
-      showNotification(err.response?.data?.message || 'Error processing student', 'error');
+      toast.error(err.response?.data?.message || 'Error processing student');
     }
   };
 
@@ -112,18 +113,19 @@ export default function AdminDashboard() {
       setEditingStudent(student._id);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
-      showNotification('Failed to fetch student details', 'error');
+      toast.error('Failed to fetch student details');
     }
   };
 
   const handleDeleteStudent = async (id: string) => {
-    if (!confirm('Are you sure?')) return;
+    const isConfirmed = await confirm('Are you sure you want to delete this student profile?');
+    if (!isConfirmed) return;
     try {
       await api.delete(`/students/${id}`);
-      showNotification('Student deleted', 'success');
+      toast.success('Student deleted');
       fetchStudents();
     } catch (err: any) {
-      showNotification('Error deleting student', 'error');
+      toast.error('Error deleting student');
     }
   };
 
@@ -131,16 +133,16 @@ export default function AdminDashboard() {
     e.preventDefault();
     try {
       await api.put('/content', { homeContent: contentForm });
-      showNotification('Content updated', 'success');
+      toast.success('Content updated');
     } catch (err: any) {
-      showNotification('Error updating content', 'error');
+      toast.error('Error updating content');
     }
   };
 
   const handleAddMedia = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedFile) {
-      showNotification('Please select a file to upload', 'warning');
+      toast.error('Please select a file to upload');
       return;
     }
 
@@ -152,24 +154,25 @@ export default function AdminDashboard() {
       await api.post('/gallery/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
-      showNotification('Media uploaded successfully', 'success');
+      toast.success('Media uploaded successfully');
       setCaption('');
       setSelectedFile(null);
       if (fileInputRef.current) fileInputRef.current.value = '';
       fetchGallery();
     } catch (err: any) {
-      showNotification(err.response?.data?.message || 'Error uploading media', 'error');
+      toast.error(err.response?.data?.message || 'Error uploading media');
     }
   };
 
   const handleDeleteMedia = async (id: string) => {
-    if (!confirm('Are you sure?')) return;
+    const isConfirmed = await confirm('Are you sure you want to delete this media?');
+    if (!isConfirmed) return;
     try {
       await api.delete(`/gallery/${id}`);
-      showNotification('Media deleted', 'success');
+      toast.success('Media deleted');
       fetchGallery();
     } catch (err: any) {
-      showNotification('Error deleting media', 'error');
+      toast.error('Error deleting media');
     }
   };
 
@@ -339,7 +342,11 @@ export default function AdminDashboard() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {gallery.map((item) => (
                 <div key={item._id} className="relative group aspect-square bg-gray-100 overflow-hidden">
-                  <img src={item.mediaUrl} alt={item.caption} className="w-full h-full object-cover" />
+                  {item.type === 'video' ? (
+                    <video src={item.mediaUrl} className="w-full h-full object-cover" muted />
+                  ) : (
+                    <img src={item.mediaUrl} alt={item.caption} className="w-full h-full object-cover" />
+                  )}
                   <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <button onClick={() => handleDeleteMedia(item._id)} className="bg-red-500 text-white p-2 hover:bg-red-600 transition-colors">
                       <Trash2 size={16} />

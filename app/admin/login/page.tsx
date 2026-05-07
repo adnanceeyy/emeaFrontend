@@ -2,14 +2,13 @@
 import { useState } from 'react';
 import api from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
-import { useNotification } from '@/context/NotificationContext';
+import { toast } from 'react-toastify';
 import { Lock } from 'lucide-react';
 
 export default function AdminLogin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { login } = useAuth();
-  const { showNotification } = useNotification();
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -17,10 +16,10 @@ export default function AdminLogin() {
     setLoading(true);
     try {
       const res = await api.post('/auth/login', { username, password });
-      showNotification('Login successful!', 'success');
+      toast.success('Login successful!');
       login(res.data.token, res.data.user);
     } catch (err: any) {
-      showNotification(err.response?.data?.message || 'Login failed', 'error');
+      toast.error(err.response?.data?.message || 'Login failed');
     } finally {
       setLoading(false);
     }

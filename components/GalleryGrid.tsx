@@ -6,6 +6,7 @@ import Image from 'next/image';
 interface GalleryItem {
   _id: string;
   mediaUrl: string;
+  type?: 'image' | 'video';
   caption?: string;
 }
 
@@ -42,11 +43,33 @@ export default function GalleryGrid({ items }: { items: GalleryItem[] }) {
               onClick={() => openLightbox(index)}
               className="group relative aspect-square bg-gray-100 overflow-hidden border border-white cursor-pointer"
             >
-              <img 
-                src={displayUrl} 
-                alt={item.caption || 'Gallery Image'} 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-              />
+              {item.type === 'video' ? (
+                <div className="w-full h-full relative">
+                  <video 
+                    src={displayUrl} 
+                    className="w-full h-full object-cover"
+                    muted
+                    onMouseOver={(e) => (e.target as HTMLVideoElement).play()}
+                    onMouseOut={(e) => {
+                      const v = e.target as HTMLVideoElement;
+                      v.pause();
+                      v.currentTime = 0;
+                    }}
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/10">
+                    <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30">
+                      <div className="w-0 h-0 border-t-[8px] border-t-transparent border-l-[12px] border-l-white border-b-[8px] border-b-transparent ml-1" />
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <img 
+                  src={displayUrl} 
+                  alt={item.caption || 'Gallery Image'} 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                />
+              )}
+              
               <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                 <Maximize2 className="text-white" size={24} />
               </div>
@@ -81,14 +104,26 @@ export default function GalleryGrid({ items }: { items: GalleryItem[] }) {
             </button>
 
             <div className="relative w-full max-w-5xl h-[70vh] md:h-[80vh] group">
-              <img 
-                src={items[selectedIndex].mediaUrl.replace(
-                  'http://localhost:5000', 
-                  (process.env.NEXT_PUBLIC_API_URL || '').replace('/api', '')
-                )} 
-                alt="Selected"
-                className="w-full h-full object-contain"
-              />
+              {items[selectedIndex].type === 'video' ? (
+                <video 
+                  src={items[selectedIndex].mediaUrl.replace(
+                    'http://localhost:5000', 
+                    (process.env.NEXT_PUBLIC_API_URL || '').replace('/api', '')
+                  )} 
+                  controls
+                  autoPlay
+                  className="w-full h-full object-contain"
+                />
+              ) : (
+                <img 
+                  src={items[selectedIndex].mediaUrl.replace(
+                    'http://localhost:5000', 
+                    (process.env.NEXT_PUBLIC_API_URL || '').replace('/api', '')
+                  )} 
+                  alt="Selected"
+                  className="w-full h-full object-contain"
+                />
+              )}
               <div className="absolute -bottom-16 left-0 right-0 text-center space-y-2">
                 <p className="text-xs font-black text-[#55CF9A] uppercase tracking-[0.3em]">
                   {selectedIndex + 1} / {items.length}
