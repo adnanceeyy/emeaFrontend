@@ -108,6 +108,17 @@ export default function StudentDetailsPage() {
     );
   }
 
+  if (!student) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4">
+        <p className="text-gray-500 font-bold">Student records not found or error loading data.</p>
+        <button onClick={() => router.push('/students')} className="text-xs font-bold text-[#55CF9A] uppercase tracking-widest hover:underline">
+          Return to Directory
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="py-32 bg-white min-h-screen">
       {/* Hide on print */}
