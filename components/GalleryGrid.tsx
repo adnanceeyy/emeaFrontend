@@ -30,25 +30,32 @@ export default function GalleryGrid({ items }: { items: GalleryItem[] }) {
   return (
     <>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 md:gap-2">
-        {items.map((item, index) => (
-          <div 
-            key={item._id} 
-            onClick={() => openLightbox(index)}
-            className="group relative aspect-square bg-gray-100 overflow-hidden border border-white cursor-pointer"
-          >
-            <img 
-              src={item.mediaUrl} 
-              alt={item.caption || 'Gallery Image'} 
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-            />
-            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-              <Maximize2 className="text-white" size={24} />
+        {items.map((item, index) => {
+          const displayUrl = item.mediaUrl.replace(
+            'http://localhost:5000', 
+            (process.env.NEXT_PUBLIC_API_URL || '').replace('/api', '')
+          );
+          
+          return (
+            <div 
+              key={item._id} 
+              onClick={() => openLightbox(index)}
+              className="group relative aspect-square bg-gray-100 overflow-hidden border border-white cursor-pointer"
+            >
+              <img 
+                src={displayUrl} 
+                alt={item.caption || 'Gallery Image'} 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+              />
+              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <Maximize2 className="text-white" size={24} />
+              </div>
+              <div className="absolute inset-x-0 bottom-0 bg-black/40 p-2 opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 duration-300">
+                <p className="text-white text-[8px] font-bold uppercase tracking-widest text-center">{item.caption || 'Expand'}</p>
+              </div>
             </div>
-            <div className="absolute inset-x-0 bottom-0 bg-black/40 p-2 opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 duration-300">
-              <p className="text-white text-[8px] font-bold uppercase tracking-widest text-center">{item.caption || 'Expand'}</p>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Lightbox Modal */}
@@ -75,7 +82,10 @@ export default function GalleryGrid({ items }: { items: GalleryItem[] }) {
 
             <div className="relative w-full max-w-5xl h-[70vh] md:h-[80vh] group">
               <img 
-                src={items[selectedIndex].mediaUrl} 
+                src={items[selectedIndex].mediaUrl.replace(
+                  'http://localhost:5000', 
+                  (process.env.NEXT_PUBLIC_API_URL || '').replace('/api', '')
+                )} 
                 alt="Selected"
                 className="w-full h-full object-contain"
               />
