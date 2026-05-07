@@ -15,9 +15,6 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "EMEA HSS Special Care Center",
   description: "Dedicated to providing specialized care and education for children, ensuring their holistic development and well-being.",
-  icons: {
-    icon: '/assets/emeaLogo.png',
-  },
   openGraph: {
     title: "EMEA HSS Special Care Center",
     description: "Dedicated to providing specialized care and education for children.",
