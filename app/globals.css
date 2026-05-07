@@ -62,7 +62,7 @@ body {
 
 /* Print Styles for Perfect PDF Export */
 @media print {
-  nav, footer, .print-hidden, .toast-container {
+  nav, footer, .print-hidden {
     display: none !important;
   }
   

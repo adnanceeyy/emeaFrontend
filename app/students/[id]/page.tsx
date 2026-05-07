@@ -2,13 +2,14 @@
 import { useState, useEffect, useRef } from 'react';
 import api from '@/lib/api';
 import { useParams, useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
+import { useNotification } from '@/context/NotificationContext';
 import Cookies from 'js-cookie';
 import { Lock, FileText, ArrowLeft, Download, Printer } from 'lucide-react';
 
 export default function StudentDetailsPage() {
   const { id } = useParams();
   const router = useRouter();
+  const { showNotification } = useNotification();
   const [student, setStudent] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [authError, setAuthError] = useState(false);
@@ -31,7 +32,7 @@ export default function StudentDetailsPage() {
       if (err.response?.status === 401 || err.response?.status === 403) {
         setAuthError(true);
       } else {
-        toast.error('Error fetching student data');
+        showNotification('Error fetching student data', 'error');
       }
     } finally {
       setLoading(false);
@@ -46,7 +47,7 @@ export default function StudentDetailsPage() {
       Cookies.set('student_token', res.data.token, { expires: 1 });
       await checkAccess();
     } catch (err: any) {
-      toast.error(err.response?.data?.message || 'Login failed');
+      showNotification(err.response?.data?.message || 'Login failed', 'error');
     } finally {
       setIsLoggingIn(false);
     }

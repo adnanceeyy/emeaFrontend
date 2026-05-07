@@ -3,12 +3,13 @@ import { useState, useEffect, useRef } from 'react';
 import api from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
+import { useNotification } from '@/context/NotificationContext';
 import { Users, Image as ImageIcon, FileText, Upload, Trash2, Edit2, Key } from 'lucide-react';
 
 export default function AdminDashboard() {
   const { user, loading } = useAuth();
   const router = useRouter();
+  const { showNotification } = useNotification();
   const [activeTab, setActiveTab] = useState('students');
 
   // Student Form State
@@ -72,15 +73,15 @@ export default function AdminDashboard() {
     try {
       if (editingStudent) {
         await api.put(`/students/${editingStudent}`, studentForm);
-        toast.success('Student updated successfully');
+        showNotification('Student updated successfully', 'success');
       } else {
         await api.post('/students', studentForm);
-        toast.success('Student added successfully');
+        showNotification('Student added successfully', 'success');
       }
       resetStudentForm();
       fetchStudents();
     } catch (err: any) {
-      toast.error(err.response?.data?.message || 'Error processing student');
+      showNotification(err.response?.data?.message || 'Error processing student', 'error');
     }
   };
 
@@ -111,7 +112,7 @@ export default function AdminDashboard() {
       setEditingStudent(student._id);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
-      toast.error('Failed to fetch student details');
+      showNotification('Failed to fetch student details', 'error');
     }
   };
 
@@ -119,10 +120,10 @@ export default function AdminDashboard() {
     if (!confirm('Are you sure?')) return;
     try {
       await api.delete(`/students/${id}`);
-      toast.success('Student deleted');
+      showNotification('Student deleted', 'success');
       fetchStudents();
     } catch (err: any) {
-      toast.error('Error deleting student');
+      showNotification('Error deleting student', 'error');
     }
   };
 
@@ -130,16 +131,16 @@ export default function AdminDashboard() {
     e.preventDefault();
     try {
       await api.put('/content', { homeContent: contentForm });
-      toast.success('Content updated');
+      showNotification('Content updated', 'success');
     } catch (err: any) {
-      toast.error('Error updating content');
+      showNotification('Error updating content', 'error');
     }
   };
 
   const handleAddMedia = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedFile) {
-      toast.error('Please select a file to upload');
+      showNotification('Please select a file to upload', 'warning');
       return;
     }
 
@@ -151,13 +152,13 @@ export default function AdminDashboard() {
       await api.post('/gallery/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
-      toast.success('Media uploaded successfully');
+      showNotification('Media uploaded successfully', 'success');
       setCaption('');
       setSelectedFile(null);
       if (fileInputRef.current) fileInputRef.current.value = '';
       fetchGallery();
     } catch (err: any) {
-      toast.error(err.response?.data?.message || 'Error uploading media');
+      showNotification(err.response?.data?.message || 'Error uploading media', 'error');
     }
   };
 
@@ -165,10 +166,10 @@ export default function AdminDashboard() {
     if (!confirm('Are you sure?')) return;
     try {
       await api.delete(`/gallery/${id}`);
-      toast.success('Media deleted');
+      showNotification('Media deleted', 'success');
       fetchGallery();
     } catch (err: any) {
-      toast.error('Error deleting media');
+      showNotification('Error deleting media', 'error');
     }
   };
 

@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
+import { NotificationProvider } from "@/context/NotificationContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const poppins = Poppins({ 
   subsets: ["latin"],
@@ -64,10 +63,11 @@ export default function RootLayout({
       </head>
       <body className={`${poppins.className} min-h-screen flex flex-col bg-white text-gray-900`}>
         <AuthProvider>
-          <Navbar />
-          <main className="flex-grow">{children}</main>
-          <Footer />
-          <ToastContainer position="bottom-right" />
+          <NotificationProvider>
+            <Navbar />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </NotificationProvider>
         </AuthProvider>
       </body>
     </html>
