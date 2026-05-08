@@ -18,7 +18,7 @@ export default async function Home() {
 
   const teachers = [
     { name: 'K. Sham', role: 'Principal', image: '/assets/shamk.png' },
-    { name: 'Ismail PT', role: 'Headmaster', image: '/assets/ismail.png' },
+    { name: 'Rohini KS', role: 'Headmaster', image: '/assets/rohini.jpeg' },
     { name: 'Rashid Pazheri', role: 'Educator', image: '/assets/rashidP.png' },
   ];
 
