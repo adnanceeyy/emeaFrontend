@@ -25,41 +25,39 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
         <Link href="/" className="flex items-center gap-3">
           <div className="relative w-10 h-10">
-            <Image 
-              src="/assets/emeaLogo.png" 
-              alt="EMEA Logo" 
-              fill 
+            <Image
+              src="/icon.png"
+              alt="EMEA Logo"
+              fill
               className="object-contain"
             />
           </div>
           <span className="text-lg font-bold text-gray-900 tracking-tight uppercase">EMEA HSS</span>
         </Link>
-        
+
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-8">
           {navLinks.map((link) => {
             const isActive = link.path === '/' ? pathname === '/' : pathname.startsWith(link.path);
             return (
-              <Link 
-                key={link.name} 
-                href={link.path} 
-                className={`text-sm font-bold transition-colors ${
-                  isActive ? 'text-[#55CF9A]' : 'text-gray-500 hover:text-[#55CF9A]'
-                }`}
+              <Link
+                key={link.name}
+                href={link.path}
+                className={`text-sm font-bold transition-colors ${isActive ? 'text-[#55CF9A]' : 'text-gray-500 hover:text-[#55CF9A]'
+                  }`}
               >
                 {link.name}
               </Link>
             );
           })}
-          
+
           {(user && user.role === 'admin') ? (
-            <Link 
-              href="/admin/dashboard" 
-              className={`px-6 py-2.5 font-bold text-xs uppercase tracking-widest flex items-center gap-2 transition-colors ${
-                isAdminPage 
-                  ? 'bg-[#55CF9A] text-white shadow-lg shadow-[#55CF9A]/20' 
+            <Link
+              href="/admin/dashboard"
+              className={`px-6 py-2.5 font-bold text-xs uppercase tracking-widest flex items-center gap-2 transition-colors ${isAdminPage
+                  ? 'bg-[#55CF9A] text-white shadow-lg shadow-[#55CF9A]/20'
                   : 'bg-gray-900 text-white hover:bg-black'
-              }`}
+                }`}
             >
               <LayoutDashboard size={14} /> Dashboard
             </Link>
@@ -85,12 +83,11 @@ export default function Navbar() {
           {navLinks.map((link) => {
             const isActive = link.path === '/' ? pathname === '/' : pathname.startsWith(link.path);
             return (
-              <Link 
-                key={link.name} 
-                href={link.path} 
-                className={`block text-sm font-bold ${
-                  isActive ? 'text-[#55CF9A]' : 'text-gray-500'
-                }`} 
+              <Link
+                key={link.name}
+                href={link.path}
+                className={`block text-sm font-bold ${isActive ? 'text-[#55CF9A]' : 'text-gray-500'
+                  }`}
                 onClick={() => setIsOpen(false)}
               >
                 {link.name}
@@ -98,11 +95,10 @@ export default function Navbar() {
             );
           })}
           {(user && user.role === 'admin') ? (
-            <Link 
-              href="/admin/dashboard" 
-              className={`block w-full text-center py-3 font-bold text-xs uppercase tracking-widest ${
-                isAdminPage ? 'bg-[#55CF9A] text-white' : 'bg-gray-900 text-white'
-              }`} 
+            <Link
+              href="/admin/dashboard"
+              className={`block w-full text-center py-3 font-bold text-xs uppercase tracking-widest ${isAdminPage ? 'bg-[#55CF9A] text-white' : 'bg-gray-900 text-white'
+                }`}
               onClick={() => setIsOpen(false)}
             >
               Dashboard

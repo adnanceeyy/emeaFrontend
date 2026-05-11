@@ -8,29 +8,68 @@ import Footer from "@/components/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const poppins = Poppins({ 
+const poppins = Poppins({
   subsets: ["latin"],
   weight: ['400', '500', '600', '700', '800', '900']
 });
 
 export const metadata: Metadata = {
-  title: "EMEA HSS Special Care Center",
-  description: "Dedicated to providing specialized care and education for children, ensuring their holistic development and well-being.",
+  title: {
+    default: "EMEA HSS Special Care Center | Specialized Education & Care",
+    template: "%s | EMEA HSS"
+  },
+  description: "EMEA HSS Special Care Center in Kondotty, Kerala, provides dedicated education and holistic care for children with special needs. Empowering lives through expert support.",
+  keywords: ["Special Care Center", "EMEA HSS", "Special Education Kerala", "Kondotty School", "Child Care Education", "Holistic Development"],
+  authors: [{ name: "EMEA HSS" }],
+  creator: "EMEA HSS",
+  publisher: "EMEA HSS",
+  formatDetection: {
+    email: false,
+    address: true,
+    telephone: true,
+  },
+  metadataBase: new URL("https://emeahss.edu.in"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "EMEA HSS Special Care Center",
-    description: "Dedicated to providing specialized care and education for children.",
+    title: "EMEA HSS Special Care Center | Specialized Education & Care",
+    description: "Dedicated to providing specialized care and education for children, ensuring their holistic development and well-being.",
     url: "https://emeahss.edu.in",
     siteName: "EMEA HSS Special Care Center",
     images: [
       {
-        url: "https://emeahss.edu.in/og-image.jpg",
+        url: "/assets/bg.png",
         width: 1200,
         height: 630,
+        alt: "EMEA HSS Special Care Center",
       },
     ],
     locale: "en_IN",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "EMEA HSS Special Care Center",
+    description: "Specialized care and education for children in Kondotty, Kerala.",
+    images: ["/assets/bg.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  icons: {
+    icon: "/icon.png",
+    apple: "/icon.png",
+  },
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
@@ -42,17 +81,29 @@ export default function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'EducationalOrganization',
     name: 'EMEA HSS Special Care Center',
-    image: 'https://emeahss.edu.in/og-image.jpg',
-    description: 'Specialized care and education for children in Kondotty, Kerala.',
+    alternateName: 'EMEA HSS SCC',
+    image: 'https://emeahss.edu.in/icon.png',
+    description: 'EMEA HSS Special Care Center is a premier institution providing specialized education and care for children in Kondotty, Malappuram, Kerala.',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Kondotty',
       addressLocality: 'Malappuram',
       addressRegion: 'Kerala',
+      postalCode: '673638',
       addressCountry: 'IN'
     },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: '11.1444',
+      longitude: '75.9525'
+    },
     telephone: '+910000000000',
-    url: 'https://emeahss.edu.in'
+    url: 'https://emeahss.edu.in',
+    openingHours: 'Mo-Fr 09:00-16:00',
+    sameAs: [
+      'https://www.facebook.com/emeahss',
+      'https://www.instagram.com/emeahss'
+    ]
   };
 
   return (

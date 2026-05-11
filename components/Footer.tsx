@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="space-y-6">
           <div className="flex items-center gap-3">
             <div className="relative w-8 h-8">
-              <Image src="/assets/emeaLogo.png" alt="Logo" fill className="object-contain" />
+              <Image src="/icon.png" alt="Logo" fill className="object-contain" />
             </div>
             <h3 className="text-xl font-bold text-gray-900 tracking-tight uppercase">EMEA HSS <br /><span className="text-[#55CF9A]">Special Care Center</span></h3>
           </div>
