@@ -1,4 +1,10 @@
+import type { Metadata } from 'next';
 import { LayoutGrid } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Specialized Services',
+  description: 'Discover the professional support systems at EMEA HSS Special Care Center, including Remedial Teaching, Speech Therapy, Occupational Therapy, Assessment, and Parental Counseling.',
+};
 
 async function getServices() {
   try {

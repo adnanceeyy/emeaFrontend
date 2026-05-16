@@ -5,8 +5,8 @@ import { MessageCircle, ArrowRight } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Home',
-  description: 'Welcome to EMEA HSS Special Care Center. We provide specialized education and holistic care for children with special needs in Kondotty, Kerala.',
+  title: 'EMEA HSS Special Care Center | Premier Special Education in Kondotty, Kerala',
+  description: 'Welcome to EMEA HSS Special Care Center, a leading institution in Kondotty, Kerala, dedicated to providing specialized education, holistic care, and professional therapy for children with special needs.',
 };
 
 async function getContent() {

@@ -1,4 +1,10 @@
+import type { Metadata } from 'next';
 import GalleryGrid from '@/components/GalleryGrid';
+
+export const metadata: Metadata = {
+  title: 'Gallery',
+  description: 'Explore the visual archive of EMEA HSS Special Care Center. A glimpse into our specialized environment, inclusive learning activities, and school life in Kondotty, Kerala.',
+};
 
 async function getGallery() {
   try {
