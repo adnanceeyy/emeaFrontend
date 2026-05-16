@@ -102,11 +102,11 @@ export default function RootLayout({
     url: 'https://emeahss.edu.in',
     logo: 'https://emeahss.edu.in/icon.png',
     image: 'https://emeahss.edu.in/assets/bg.png',
-    description: 'EMEA HSS Special Care Center is a premier institution providing specialized education and care for children in Kondotty, Malappuram, Kerala. We focus on holistic development and empowering lives.',
+    description: 'EMEA HSS Special Care Center is a premier institution providing specialized education and care for children in Kondotty, Malappuram, Kerala. We focus on holistic development and empowering lives through expert therapy and inclusive learning.',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Kondotty',
-      addressLocality: 'Malappuram',
+      streetAddress: 'EMEA HSS SCC, Kondotty',
+      addressLocality: 'Kondotty',
       addressRegion: 'Kerala',
       postalCode: '673638',
       addressCountry: 'IN'
@@ -116,11 +116,12 @@ export default function RootLayout({
       latitude: '11.1444',
       longitude: '75.9525'
     },
-    telephone: '+910000000000',
+    telephone: '+919947941701',
+    email: 'info@emeahss.edu.in',
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+910000000000',
-      contactType: 'customer service',
+      telephone: '+919947941701',
+      contactType: 'admissions',
       areaServed: 'IN',
       availableLanguage: ['en', 'ml']
     },
